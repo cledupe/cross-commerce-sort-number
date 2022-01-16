@@ -1,8 +1,6 @@
 package domain
 
-import (
-	"sync"
-)
+import "github.com/cledupe/cross-commerce-sort-number/domain/utils"
 
 type ListStNumber struct {
 	numbers []float64
@@ -33,47 +31,6 @@ func (listStNumber ListStNumber) GetNumbers(itensPerPage int, pageNumber int) []
 }
 
 func (listStNumber *ListStNumber) SortList() {
-	listStNumber.quickSortMultiThread()
-}
-
-func (listStNumber *ListStNumber) quickSortMultiThread() {
-	if len(listStNumber.numbers) > 1 {
-		var wg sync.WaitGroup
-		wg.Add(2)
-		first, last := 0, len(listStNumber.numbers)-1
-		pivotIndex := partition(listStNumber.numbers, first, last)
-		go func() {
-			quickSort(listStNumber.numbers, first, pivotIndex-1)
-			wg.Done()
-		}()
-
-		go func() {
-			quickSort(listStNumber.numbers, pivotIndex+1, last)
-			wg.Done()
-		}()
-
-		wg.Wait()
-	}
-
-}
-
-func partition(numberArray []float64, first int, last int) int {
-	pivotValue := numberArray[last]
-	for j := first; j < last; j++ {
-		if numberArray[j] < pivotValue {
-			numberArray[j], numberArray[first] = numberArray[first], numberArray[j]
-			first++
-		}
-	}
-	numberArray[first], numberArray[last] = numberArray[last], numberArray[first]
-	return first
-}
-
-func quickSort(numberArray []float64, first int, last int) {
-	if first > last {
-		return
-	}
-	pivotIndex := partition(numberArray, first, last)
-	quickSort(numberArray, first, pivotIndex-1)
-	quickSort(numberArray, pivotIndex+1, last)
+	// utils.QuickSortMultiThread(listStNumber.numbers)
+	listStNumber.numbers = utils.SortMultiThread(listStNumber.numbers)
 }

@@ -10,7 +10,7 @@ import (
 
 func InsertNumbers(dataInput input.InterfaceData, dataSave output.InterfaceData) {
 	coreNumber := runtime.NumCPU()
-	channels := make(chan []float64, 1)
+	channels := make(chan []float64, coreNumber)
 	page := 0
 	valid := true
 	var numbers []float64
