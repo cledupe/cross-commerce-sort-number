@@ -55,6 +55,7 @@ func SortMultiThread(arrayNumbers []float64) []float64 {
 	rangeValues := (len(arrayNumbers) + coreNumber - 1) / coreNumber
 	coreUsed := 0
 
+	//dividi o array de numeros para rodar o algoritimo de forma paralela
 	for i := 0; i < len(arrayNumbers); i += rangeValues {
 		end := i + rangeValues
 		coreUsed += 1
@@ -67,6 +68,7 @@ func SortMultiThread(arrayNumbers []float64) []float64 {
 		}(i)
 	}
 
+	//merge final como o resultados dos processos paralelos
 	for c := 0; c < coreUsed; c++ {
 		result = merge(result, <-channels)
 	}

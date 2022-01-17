@@ -12,13 +12,16 @@ import (
 	Fluxo para a entrada de dados no extract
 */
 func InsertNumbers(dataInput input.InterfaceData, dataSave output.InterfaceData) {
+	//Numero de core da maquina para o numero de processos paralelos
 	coreNumber := runtime.NumCPU()
+	//criacao de canal para envio de mensagen dos processos
 	channels := make(chan []float64, coreNumber)
 	page := 0
 	valid := true
 	var numbers []float64
 
 	for valid {
+		//Busca de dados paralelamente
 		for channelSize := 0; channelSize < coreNumber; channelSize++ {
 			page += 1
 			go func(page int) {
