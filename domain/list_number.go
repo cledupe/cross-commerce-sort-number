@@ -31,6 +31,5 @@ func (listStNumber ListStNumber) GetNumbers(itensPerPage int, pageNumber int) []
 }
 
 func (listStNumber *ListStNumber) SortList() {
-	// utils.QuickSortMultiThread(listStNumber.numbers)
 	listStNumber.numbers = utils.SortMultiThread(listStNumber.numbers)
 }

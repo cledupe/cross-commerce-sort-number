@@ -8,12 +8,16 @@ import (
 	"github.com/cledupe/cross-commerce-sort-number/domain"
 )
 
+/*
+	Fluxo para a entrada de dados no extract
+*/
 func InsertNumbers(dataInput input.InterfaceData, dataSave output.InterfaceData) {
 	coreNumber := runtime.NumCPU()
 	channels := make(chan []float64, coreNumber)
 	page := 0
 	valid := true
 	var numbers []float64
+
 	for valid {
 		for channelSize := 0; channelSize < coreNumber; channelSize++ {
 			page += 1
