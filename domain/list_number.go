@@ -2,6 +2,7 @@ package domain
 
 import "github.com/cledupe/cross-commerce-sort-number/domain/utils"
 
+//Struct para guardar os dados numericos
 type ListStNumber struct {
 	numbers []float64
 }
